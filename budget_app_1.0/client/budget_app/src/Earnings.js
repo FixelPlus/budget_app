@@ -1,57 +1,155 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import './Earnings.css';
 import Input_amount from './Input_amount';
+import Select from 'react-select'
+
+
+const options = [
+  { value: '', label: '' },
+  { value: '', label: '' },
+  { value: '', label: '' },
+  { value: '', label: '' },
+  { value: '', label: '' },
+  { value: '', label: '' },
+  { value: '', label: '' },
+  { value: '', label: '' }
+]
 
 class Earnings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            earned: 0
+            earned: 0,
+            total: 0,
+            selectedCategory: 0,
+            selectedCategoryName: ''
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.display = this.display.bind(this);
+        this.postTransaction = this.postTransaction.bind(this);
+        this.getTotal = this.getTotal.bind(this);
     }
 
-    handleSubmit(event){
-        this.setState(event =>{return { earned: event.earned +100 }});
+  //   handleChange(){
+  //     this.setState({selectedCategory: this.state.selectedCategory + options.});
+  //     console.log(this.state.selectedCategory);
+  //  }
+  handleChange = (selectedCategory, selectedCategoryName) => {
+    this.setState({ selectedCategory, selectedCategoryName });
+    
+  }
+
+   display = (event) => {
+    this.setState({earned: event.target.value});
    }
 
-   display(symbol){
-    this.setState(() => {return {earned: this.state.earned + symbol}})
-   }
+
+     async postTransaction (e) {
+    e.preventDefault();
+    try {
+        const response1 =  await fetch("http://localhost:5010/budget",{
+            method: "POST",
+            headers:{"Content-Type": "application/json"},
+            body:  JSON.stringify({
+              amount: this.state.earned,
+              type:1,
+              category_id: this.state.selectedCategory.value,
+              category_name: this.state.selectedCategoryName.value
+            })
+        });
+        const response2 = await fetch("http://localhost:5010/budget/total",{
+          method: "GET",
+          headers:{"Content-Type": "application/json"}
+        });
+        const data = await response2.json()
+        console.log("Post response3", response1);
+        console.log("GET response3", data[0]);
+        console.log("GET response3", data[0].sum);
+        this.setState({total: data[0].sum});
+
+    } catch (error) {
+        console.error(error.message2)
+    }
+};
+
+    async getTotal(){
+        try {
+          const response3 = await fetch("http://localhost:5010/budget/total",{
+            method: "GET",
+            headers:{"Content-Type": "application/json"}
+          });
+          const data = await response3.json() // store in the data const whatever we recieved from the server
+          console.log("GET response3", data[0].sum);
+          this.setState({total: data[0].sum});
+  
+      } catch (error) {
+          console.error(error.message2)
+      }
+
+      }
+
+      async getCategories(){
+        try {
+          const response3 = await fetch("http://localhost:5010/budget/earnings_categories",{
+            method: "GET",
+            headers:{"Content-Type": "application/json"}
+          });
+          const data = await response3.json()
+    
+          const categories_id = data.map(element => {
+            return element.earn_cat_id;
+          });
+          const categories_name = data.map(element => {
+            return element.category_name;
+          });
+        
+         options.forEach((el,index) => {  
+          el.value = categories_id[index]
+        })
+         options.forEach((el,index) => {  
+          el.label = categories_name[index];
+        })
+  
+      } catch (error) {
+          console.error(error.message2)
+      }
+
+      }
+
+      // use this function to display total every time page is loaded
+      componentDidMount() {
+        this.getTotal();
+        this.getCategories();
+      }
+      
 
     render(){
+      const {selectedCategory} = this.state;
+      const {selectedCategoryName} = this.state;
         return (
+          <Fragment>
         <div>
             <div className = "Earned-window">
             <h3>
             Earned
             </h3>
             <div className= " Earned-amount ">
-            <input type="text" value = { parseFloat(this.state.earned).toFixed(2)} placeholder="0" disabled></input>
+              <h2>{this.state.total}</h2>
             </div>
+            <form onSubmit ={this.postTransaction}>
             <div className="container">
               <div className="grid">
               <div className="padButton dis">
-                <input type="text" value = {this.state.earned} placeholder="0" disabled></input>
+                <input type="text"  placeholder="0" onChange={this.display}></input>{/**defaultValue = {this.state.earned} */}
               </div>
-                <div onClick={this.display}className="padButton one">1</div>
-                <div onClick={this.display}className="padButton two">2</div>
-                <div onClick={this.display}className="padButton three">3</div>
-                <div onClick={this.display}className="padButton four">4</div>
-                <div onClick={this.display}className="padButton five">5</div>
-                <div onClick={this.display}className="padButton six">6</div>
-                <div onClick={() => this.display("7")} className="padButton seven">7</div>
-                <div onClick={this.display}className="padButton eight">8</div>
-                <div onClick={this.display}className="padButton nine">9</div>
-                <div onClick={this.display}className="padButton zero">0</div>
-                <div onClick={this.display}className="padButton dot">.</div>
                 <button className="padButton add">add</button>
+                <Select  options={options} value ={selectedCategory} label={selectedCategoryName} onChange={this.handleChange}/>
               </div>
             </div>
-
+            </form>
             </div>
         </div>
+        </Fragment>
           );
     }
 }

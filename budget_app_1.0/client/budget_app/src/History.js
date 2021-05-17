@@ -11,6 +11,7 @@ class History extends Component {
             
             <div className='History-component'>
              <button>History</button>
+             
             </div>
       
           );

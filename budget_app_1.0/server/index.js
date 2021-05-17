@@ -11,11 +11,14 @@ app.use(express.json());
 
 app.post("/budget", async(req,res) =>{
     try {
-     const {notes} = req.body;
+        
+     const {amount,type, category_id} = req.body;
+     console.log("server req.body",req.body)
      const newTransaction = await pool.query(
-         "INSERT INTO transactions (notes) VALUES($1) RETURNING *",
-          [notes]);
+         "INSERT INTO transactions (amount, type, category_id) VALUES($1, $2, $3) RETURNING *",
+          [amount, type, category_id]);
     res.json(newTransaction.rows[0]);
+    //window.location = "/"; // refresh the page
     }
 
     catch (error) {
@@ -23,16 +26,39 @@ app.post("/budget", async(req,res) =>{
     }
 })
 
+
 // GET
 
 app.get("/budget", async(req, res) => {
     try {
-        const allTransactions = await pool.query("SELECT * FROM transactions");
+        const allTransactions = await pool.query(
+            "SELECT * FROM transactions JOIN earnings_categories ON transactions.category_id = earnings_categories.earn_cat_id");
         res.json(allTransactions.rows);
     } catch (error) {
         console.error(error.message);  
     }
 })
+
+                            // get total of all transactions  //
+app.get("/budget/total", async(req, res) => {
+    try {
+        const allTransactions = await pool.query("SELECT SUM(amount) FROM transactions");
+        res.json(allTransactions.rows);
+    } catch (error) {
+        console.error(error.message);  
+    }
+})
+
+                            // get all categories   //
+app.get("/budget/earnings_categories", async(req, res) => {
+    try {
+        const allCategories = await pool.query("SELECT * FROM earnings_categories");
+        res.json(allCategories.rows);
+    } catch (error) {
+        console.error(error.message);  
+    }
+})
+
 
 app.get("/budget/:id", async(req, res) => {
     try {

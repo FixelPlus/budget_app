@@ -12,6 +12,7 @@ class DisplayDate extends Component {
             currentDate: date
         }
     }
+    
 
     render(){
         return (

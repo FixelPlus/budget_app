@@ -1,10 +1,10 @@
+import React, {Fragment}from "react";
 import './App.css';
 import './Earned-and-spent.css';
 import Top from './Top.js';
 import Spendings from './Spendings.js';
 import Earnings from './Earnings.js';
-import Input_amount from './Input_amount.js';
-
+import ListTransactions from './ListTransactions.js';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
       <Spendings />
       <Earnings />
       </div>
+      <ListTransactions />
     </div>
   );
 }
