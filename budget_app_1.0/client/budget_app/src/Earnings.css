@@ -1,0 +1,52 @@
+.Earned-window {
+  font-family: Arial;
+  font-weight: bold;
+  padding: 1em;
+  background: linear-gradient(to top, #4caf50, #4caf50 10px, transparent 10px),
+    linear-gradient(to right, #c1ef8c, #c1ef8c 10px, transparent 10px),
+    linear-gradient(to bottom, #8bc34a, #8bc34a 10px, transparent 10px),
+    linear-gradient(to left, #009688, #009688 10px, transparent 10px);
+  background-origin: padding-box;
+  border-radius: 20px;
+}
+
+.Earned-amount {
+  font-size: 30px;
+}
+
+.container {
+  padding-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    'dis dis dis'
+    'one two three'
+    'four five six'
+    'seven eight nine'
+    'dot zero add';
+}
+
+.padButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 1.7em;
+  border: 1px solid green;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  background-color: #8bc34a;
+}
+
+.dis {
+  grid-area: dis;
+  background-color: #c1ef8c;
+  font-size: 20px;
+}
