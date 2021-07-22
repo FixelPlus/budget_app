@@ -1,27 +1,19 @@
-import React, { Component } from 'react'
-import './Top.css';
-import DisplayDate from './DisplayDate.js';
-import History from './History.js';
-import Report from './Report.js';
-class Top extends Component {
-    constructor(props) {
-        super(props);
-    }
+// import React, { Component } from 'react';
+// import './Top.css';
+// import DisplayDate from './DisplayDate.js';
+// import History from './History.js';
+// import Report from './Report.js';
 
-    render(){
-        return (
-            
-            <div className='Top-component'>
-              <div> < DisplayDate /> </div>
-              <div className = "Report-and-history"> 
-                <Report /> 
-                <History />
-              </div>
-            </div>
-            
-      
-          );
-    }
-}
+// const Top = () => {
+//   return (
+//     <div className="Top-component">
+//       <div>
+//         {' '}
+//         <DisplayDate />{' '}
+//       </div>
+//       <div className="Report-and-history"></div>
+//     </div>
+//   );
+// };
 
-export default Top;
+// export default Top;

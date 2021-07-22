@@ -1,21 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react';
 import './Top.css';
+import ListTransactions from './ListTransactions.js';
 
-class History extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render(){
-        return (
-            
-            <div className='History-component'>
-             <button>History</button>
-             
-            </div>
-      
-          );
-    }
+function History() {
+  return <ListTransactions />;
 }
 
 export default History;

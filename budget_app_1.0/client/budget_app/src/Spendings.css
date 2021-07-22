@@ -1,19 +1,15 @@
 .Spent-window {
-    margin-right: 10em; /* this margin separates earned and spent boxes */
-    font-family: Arial;
-    font-weight: bold;
-    padding: 40px;
-    background:
-      linear-gradient(to top, #4caf50, #4caf50 10px, transparent 10px),
-      linear-gradient(to right, #c1ef8c, #c1ef8c 10px, transparent 10px),
-      linear-gradient(to bottom, #8bc34a, #8bc34a 10px, transparent 10px),
-      linear-gradient(to left, #009688, #009688 10px, transparent 10px);
-      background-origin: padding-box;
-
-	
+  margin-right: 10em; /* this margin separates earned and spent boxes */
+  font-family: Arial;
+  font-weight: bold;
+  padding: 40px;
+  background: linear-gradient(to top, #4caf50, #4caf50 10px, transparent 10px),
+    linear-gradient(to right, #c1ef8c, #c1ef8c 10px, transparent 10px),
+    linear-gradient(to bottom, #8bc34a, #8bc34a 10px, transparent 10px),
+    linear-gradient(to left, #009688, #009688 10px, transparent 10px);
+  background-origin: padding-box;
 }
 
-.Spent-amount{
-    font-size: 3em;
-    
+.Spent-amount {
+  font-size: 3em;
 }
