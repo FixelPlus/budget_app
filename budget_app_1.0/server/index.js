@@ -11,7 +11,7 @@ app.use(express.json());
 app.post('/budget', async (req, res) => {
   try {
     const { amount, type, category_id } = req.body;
-    console.log('server req.body', req.body);
+    console.log('server req.body.', req.body);
     const newTransaction = await pool.query(
       'INSERT INTO transactions (amount, type, category_id) VALUES($1, $2, $3) RETURNING *',
       [amount, type, category_id]
@@ -24,11 +24,11 @@ app.post('/budget', async (req, res) => {
 });
 
 // GET
-
+// TODO: make a Join table with amount, category name and show it on the front end
 app.get('/budget', async (req, res) => {
   try {
     const allTransactions = await pool.query(
-      'SELECT * FROM transactions JOIN earnings_categories ON transactions.category_id = earnings_categories.earn_cat_id'
+      'SELECT amount, earnings_categories.category_name FROM transactions INNER JOIN earnings_categories ON transactions.category_id = earnings_categories.earn_cat_id'
     );
     res.json(allTransactions.rows);
   } catch (error) {

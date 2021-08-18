@@ -10,11 +10,19 @@ table {
   width: 100%;
   table-layout: fixed;
 }
-.tbl-header {
-  background-color: rgba(255, 255, 255, 0.3);
+thead {
+  position: sticky;
+  top: 0;
 }
+
+.tbl-header {
+  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  background: linear-gradient(to right, #25c481, #25b7c4);
+  font-family: 'Roboto', sans-serif;
+}
+
 .tbl-content {
-  height: 300px;
+  height: 500px;
   overflow-x: auto;
   margin-top: 0px;
   border: 1px solid rgba(255, 255, 255, 0.3);

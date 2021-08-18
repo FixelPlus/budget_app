@@ -23,21 +23,20 @@ function App() {
           {' '}
           Report
         </NavLink>
-        <a href="./"> My Profile </a>
-        <a href="/history">History </a>
-        <a href="/report"> Report</a>
       </nav>
+
       <DisplayDate />
       <div className="Earned-and-spent">
         <Route exact path="/" component={Spendings} />
         <Route
-          exact
+          exact // if exact is not used we get all components rendered or use switch
           path="/"
           component={() => <Earnings testProp="This is a test prop" />}
           // component= makes a brand new component (Bad for us)
           // going through the whole lifecycle: mount -> render -> unmount...
           // use component={component} if not passing props
         />
+
         <Route
           exact
           path="/history"

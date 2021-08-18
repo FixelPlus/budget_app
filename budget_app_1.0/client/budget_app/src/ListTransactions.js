@@ -2,11 +2,11 @@ import React, { Fragment, useEffect, useState } from 'react';
 import './ListTransactions.css';
 const Listbudget = () => {
   const [budget, setBudget] = useState([]); // default array
-
   //const API_URL = process.env.REACT_APP_API_URL;
   const getbudget = async () => {
     try {
       const response = await fetch('http://localhost:5010/budget');
+      console.log(response);
       const jsonData = await response.json();
       console.log(jsonData);
       setBudget(jsonData);
@@ -26,35 +26,24 @@ const Listbudget = () => {
 
   return (
     <Fragment>
-      <div class="tbl-header">
+      <div class="tbl-content">
         <table
-          className="table mt-5 text-center"
+          className="sticky mt-5 text-center"
           cellpadding="0"
           cellspacing="0"
           border="0"
         >
-          <thead>
+          <thead className="tbl-header">
             <tr>
-              <th>
-                <div className="">Transaction number |</div>
-              </th>
-              <th>Amount |</th>
-              <th>Type( 1 = earned, 0 = spent) |</th>
-              <th>Category id|</th>
-              <th>Category Name |</th>
+              <th>Amount</th>
+              <th>Category Name</th>
             </tr>
           </thead>
-        </table>
-      </div>
-      <div class="tbl-content">
-        <table cellpadding="0" cellspacing="0" border="0">
           <tbody>
             {budget.map(budget => (
-              <tr key={budget.transaction_id}>
-                <td>{budget.transaction_id}</td>
+              <tr>
                 <td>{budget.amount}</td>
-                <td>{budget.type}</td>
-                <td>{budget.category_id}</td>
+                <td>{budget.category_name}</td>
               </tr>
             ))}
           </tbody>
