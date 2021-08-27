@@ -2,20 +2,6 @@
   text-align: center;
 }
 
-.App-nav {
-  margin-top: 2em;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.active-link {
-  color: white;
-  text-decoration: underline;
-}
-
 a {
   margin: 1em;
   font-size: 1.5em;
